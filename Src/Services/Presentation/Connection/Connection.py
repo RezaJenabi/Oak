@@ -1,5 +1,8 @@
 import tkinter as tk
-from Src.Services.Presentation.Connection.Frams.HeaderFrame import HeaderFrame, InputFrame, ButtonFrame
+
+from Src.Services.Presentation.Connection.Frams.FooterFrame import FooterFrame
+from Src.Services.Presentation.Connection.Frams.HeaderFrame import HeaderFrame
+from Src.Services.Presentation.Connection.Frams.InformationFrame import InformationFrame
 
 
 class Connection(tk.Tk):
@@ -14,15 +17,12 @@ class Connection(tk.Tk):
 
     def __Create(self):
         self.__Screen()
-        self.rowconfigure(0, weight=1)
-        self.rowconfigure(1, weight=4)
-        self.rowconfigure(2, weight=1)
         self.__create_widgets()
         self.mainloop()
 
     def __Screen(self):
-        window_width = 800
-        window_height = 800
+        window_width = 480
+        window_height = 280
         # get the screen dimension
         screen_width = self.winfo_screenwidth()
         screen_height = self.winfo_screenheight()
@@ -31,18 +31,21 @@ class Connection(tk.Tk):
         center_y = int(screen_height / 2 - window_height / 2)
         # set the position of the window to the center of the screen
         self.geometry(f'{window_width}x{window_height}+{center_x}+{center_y}')
+        self.configure(background='#f0f0f0')
         self.resizable(False, False)
-        self.attributes('-toolwindow', True)
+        # self.attributes('-toolwindow', True)
+        self.iconbitmap('./../Assets/ssms.ico')
 
     def __create_widgets(self):
-        # create the input frame
-        headerFrame = HeaderFrame(self)
-        headerFrame.grid(column=0, row=0)
+        self.rowconfigure(0, weight=1)
+        self.rowconfigure(1, weight=4)
+        self.rowconfigure(2, weight=1)
 
-        # create the input frame
-        input_frame = InputFrame(self)
-        input_frame.grid(column=0, row=1)
+        header = HeaderFrame(self)
+        header.grid(column=0, row=0, sticky=tk.NW)
 
-        # create the button frame
-        button_frame = ButtonFrame(self)
-        button_frame.grid(column=0, row=2)
+        information = InformationFrame(self)
+        information.grid(column=0, row=1, sticky=tk.NW)
+
+        footer = FooterFrame(self)
+        footer.grid(column=0, row=2, sticky=tk.NW)
