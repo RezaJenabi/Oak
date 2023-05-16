@@ -1,6 +1,4 @@
 import tkinter as tk
-
-from Src.Services.Presentation.Connection.Frams.FooterFrame import FooterFrame
 from Src.Services.Presentation.Connection.Frams.HeaderFrame import HeaderFrame
 from Src.Services.Presentation.Connection.Frams.InformationFrame import InformationFrame
 
@@ -39,13 +37,9 @@ class Connection(tk.Tk):
     def __create_widgets(self):
         self.rowconfigure(0, weight=1)
         self.rowconfigure(1, weight=4)
-        self.rowconfigure(2, weight=1)
 
         header = HeaderFrame(self)
         header.grid(column=0, row=0, sticky=tk.NW)
 
         information = InformationFrame(self)
         information.grid(column=0, row=1, sticky=tk.NW)
-
-        footer = FooterFrame(self)
-        footer.grid(column=0, row=2, sticky=tk.NW)

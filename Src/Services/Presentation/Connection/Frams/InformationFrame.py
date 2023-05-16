@@ -1,9 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
+from Src.Infrastructure.ReadOnly.AuthenticationType import AuthenticationType
 from tkinter import *
 
 
 class InformationFrame(ttk.Frame):
+
+    __login, __password, __serverAuthenticationType, __serverName, __connect, __Cancel \
+        = None, None, None, None, None, None
+
     def __init__(self, container):
         super().__init__(container)
         self.columnconfigure(0, weight=1, pad=30)
@@ -12,32 +17,52 @@ class InformationFrame(ttk.Frame):
         self.__create_widgets()
 
     def __create_widgets(self):
-        serverName = ttk.Label(self, text="Server Name:", font=('Aerial bold', 10))
-        serverName.grid(column=0, row=0, sticky=tk.W, padx=5)
 
-        serverNamekeyword = ttk.Entry(self, width=30)
-        serverNamekeyword.focus()
-        serverNamekeyword.grid(column=2, row=0, sticky=tk.NE, padx=0, pady=5)
+        ttk.Label(self, text="Server Name:", font=('Aerial bold', 10)).grid(column=0, row=0, sticky=tk.W, padx=5)
+        self.__serverName = ttk.Entry(self, width=40)
+        self.__serverName.focus()
+        self.__serverName.grid(column=2, row=0, sticky=tk.NE, padx=15, pady=5)
 
-        serverAuthenticationType = ttk.Label(self, text="Authentication:", font=('Aerial bold', 10))
-        serverAuthenticationType.grid(column=0, row=1, sticky=tk.W, padx=5)
-        serverAuthenticationTypekeyword = ttk.Entry(self, width=30)
-        serverAuthenticationTypekeyword.focus()
-        serverAuthenticationTypekeyword.grid(column=2, row=1, sticky=tk.NE, padx=0, pady=5)
+        ttk.Label(self, text="Authentication:", font=('Aerial bold', 10)).grid(column=0, row=1, sticky=tk.W, padx=5)
+        self.__serverAuthenticationType = ttk.Combobox(self, state="readonly", width=37)
+        self.__serverAuthenticationType.bind("<<ComboboxSelected>>", self.__AuthenticationTypeChanged)
+        self.__serverAuthenticationType['values'] = list(AuthenticationType.AuthenticationTypeDictionary.values())
+        self.__serverAuthenticationType.grid(column=2, row=1, sticky=tk.NE, padx=15, pady=5)
+        self.__serverAuthenticationType.current(0)
 
-        login = ttk.Label(self, text="login:", font=('Aerial bold', 10))
-        login.grid(column=0, row=2, sticky=tk.W, padx=5)
+        ttk.Label(self, text="login:", font=('Aerial bold', 10)).grid(column=0, row=2, sticky=tk.W, padx=5)
+        self.__login = ttk.Entry(self, width=40, state="disabled")
+        self.__login.grid(column=2, row=2, sticky=tk.NE, padx=15, pady=5)
 
-        loginkeyword = ttk.Entry(self, width=30)
-        loginkeyword.focus()
-        loginkeyword.grid(column=2, row=2, sticky=tk.NE, padx=0, pady=5)
+        ttk.Label(self, text="password:", font=('Aerial bold', 10)).grid(column=0, row=3, sticky=tk.W, padx=5)
+        self.__password = ttk.Entry(self, width=40, state="disabled", show='*')
+        self.__password.grid(column=2, row=3, sticky=tk.NE, padx=15, pady=5)
 
-        password = ttk.Label(self, text="password:", font=('Aerial bold', 10))
-        password.grid(column=0, row=3, sticky=tk.W, padx=5)
+        cv = Canvas(self, width=480, height=70)
+        cv.create_line(10, 10, 470, 10, fill="#c1c1c1", width=1)
+        cv.grid(column=0, columnspan=3)
 
-        passwordkeyword = ttk.Entry(self, width=30)
-        passwordkeyword.focus()
-        passwordkeyword.grid(column=2, row=3, sticky=tk.NE, padx=0, pady=5)
+        self.__connect = ttk.Button(self, text="Connect", command=self.__Connect)
+        self.__connect.grid(column=2, row=4, padx=100, pady=35, sticky=tk.NE)
 
+        self.__Cancel = ttk.Button(self, text="Cancel", command=self.__Close)
+        self.__Cancel.grid(column=2, row=4,  padx=15, pady=35, sticky=tk.NE)
+
+    def __AuthenticationTypeChanged(self, event):
+        if event.widget.get() == AuthenticationType.AuthenticationTypeDictionary.get('SqlServerAuthentication', {}):
+            self.__login.configure(state="normal")
+            self.__password.configure(state="normal")
+        else:
+            self.__login.configure(state="disabled")
+            self.__password.configure(state="disabled")
+
+        # print( self.__login.get())
+    def __Close(self):
+        self.destroy()
+        self.quit()
+
+    def __Connect(self):
+        pass
+        # d= InformationFrame.callback
 
 
