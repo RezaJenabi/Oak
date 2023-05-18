@@ -1,14 +1,16 @@
 from tkinter import ttk
 from tkinter import *
 
+from Src.Infrastructure.Presentation.BaseFrame import BaseFrame
+from Src.Infrastructure.Presentation.BaseWidgets import BaseWidgets
 
-class HeaderFrame(ttk.Frame):
 
-    def __init__(self, container):
-        super().__init__(container)
-        self.__create_widgets()
+class HeaderFrame(BaseFrame):
 
-    def __create_widgets(self):
+    def __init__(self, parent: BaseWidgets):
+        super().__init__(parent)
+
+    def Create(self):
         cv = Canvas(self, width=480, height=70)
         cv.create_text(240, 30,
                        anchor=CENTER,

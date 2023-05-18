@@ -6,8 +6,8 @@ from Src.Services.Presentation.Connection.Connection import Connection as Connec
 
 class HeaderFrame(ttk.Frame):
 
-    def __init__(self, container):
-        super().__init__(container)
+    def __init__(self):
+        super().__init__()
         self.__create_widgets()
 
     def __create_widgets(self):
@@ -15,5 +15,4 @@ class HeaderFrame(ttk.Frame):
         _cancel.grid(column=2, row=4, padx=15, pady=35, sticky=tk.NE)
 
     def __Close(self):
-        connect = Connect()
-        connect.Create()
+        connect = Connect(None)

@@ -1,21 +1,23 @@
 import tkinter as tk
 from tkinter import ttk
+
+from Src.Infrastructure.Presentation.BaseFrame import BaseFrame
+from Src.Infrastructure.Presentation.BaseWidgets import BaseWidgets
 from Src.Infrastructure.ReadOnly.AuthenticationType import AuthenticationType
 from tkinter import *
 
 
-class InformationFrame(ttk.Frame):
+class InformationFrame(BaseFrame):
 
     __login, __password, __serverAuthenticationType, __serverName = None, None, None, None
 
-    def __init__(self, container):
-        super().__init__(container)
+    def __init__(self, parent: BaseWidgets):
+        super().__init__(parent)
         self.columnconfigure(0, weight=1, pad=30)
         self.columnconfigure(1, weight=2, pad=30)
         self.columnconfigure(2, weight=4, pad=30)
-        self.__create_widgets()
 
-    def __create_widgets(self):
+    def Create(self):
 
         ttk.Label(self, text="Server Name:", font=('Aerial bold', 10)).grid(column=0, row=0, sticky=tk.W, padx=5)
         self.__serverName = ttk.Entry(self, width=40)
@@ -56,7 +58,7 @@ class InformationFrame(ttk.Frame):
             self.__password.configure(state="disabled")
 
     def __Close(self):
-        self.ex
+        self.Parent.Close()
 
     def __Connect(self):
         pass
