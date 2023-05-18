@@ -1,10 +1,13 @@
+from Src.Infrastructure.BaseClasses.Request import Request
+from Src.Infrastructure.BaseClasses.Response import Response
 
-class Instances:
-    def __init__(self):
-        self._serverName = None
-        self._serverAuthenticationType = None
-        self._password = None
-        self._login = None
+
+class InstanceVersionRequest(Request):
+
+    _serverName = None
+    _serverAuthenticationType = None
+    _password = None
+    _login = None
 
     @property
     def Login(self):
@@ -37,3 +40,16 @@ class Instances:
     @ServerName.setter
     def ServerName(self, value):
         self._serverName = value
+
+
+class InstanceVersionResponse(Response):
+
+    _version = None
+
+    @property
+    def Version(self):
+        return self._version
+
+    @Version.setter
+    def Version(self, value):
+        self._version = value

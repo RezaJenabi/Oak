@@ -9,10 +9,6 @@ class HeaderFrame(ttk.Frame):
         self.__create_widgets()
 
     def __create_widgets(self):
-        # cv = Canvas(self,  background="blue")
-        # cv.create_rectangle(200, 200, 0, 0, fill="red")
-        # cv.create_text(100, 100, text="SQL Server", fill="white")
-        # cv.grid()
         cv = Canvas(self, width=480, height=70)
         cv.create_text(240, 30,
                        anchor=CENTER,

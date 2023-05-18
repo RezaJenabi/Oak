@@ -6,8 +6,7 @@ from tkinter import *
 
 class InformationFrame(ttk.Frame):
 
-    __login, __password, __serverAuthenticationType, __serverName, __connect, __Cancel \
-        = None, None, None, None, None, None
+    __login, __password, __serverAuthenticationType, __serverName = None, None, None, None
 
     def __init__(self, container):
         super().__init__(container)
@@ -42,11 +41,11 @@ class InformationFrame(ttk.Frame):
         cv.create_line(10, 10, 470, 10, fill="#c1c1c1", width=1)
         cv.grid(column=0, columnspan=3)
 
-        self.__connect = ttk.Button(self, text="Connect", command=self.__Connect)
-        self.__connect.grid(column=2, row=4, padx=100, pady=35, sticky=tk.NE)
+        _connect = ttk.Button(self, text="Connect", command=self.__Connect)
+        _connect.grid(column=2, row=4, padx=100, pady=35, sticky=tk.NE)
 
-        self.__Cancel = ttk.Button(self, text="Cancel", command=self.__Close)
-        self.__Cancel.grid(column=2, row=4,  padx=15, pady=35, sticky=tk.NE)
+        _cancel = ttk.Button(self, text="Cancel", command=self.__Close)
+        _cancel.grid(column=2, row=4,  padx=15, pady=35, sticky=tk.NE)
 
     def __AuthenticationTypeChanged(self, event):
         if event.widget.get() == AuthenticationType.AuthenticationTypeDictionary.get('SqlServerAuthentication', {}):
@@ -56,10 +55,8 @@ class InformationFrame(ttk.Frame):
             self.__login.configure(state="disabled")
             self.__password.configure(state="disabled")
 
-        # print( self.__login.get())
     def __Close(self):
-        self.destroy()
-        self.quit()
+        self.ex
 
     def __Connect(self):
         pass
