@@ -1,4 +1,3 @@
-import tkinter as tk
 from tkinter import ttk, messagebox
 from tkinter import *
 
@@ -6,10 +5,10 @@ from tkinter import *
 from Src.Infrastructure.Presentation.BaseFrame import BaseFrame
 from Src.Infrastructure.Presentation.BaseWidgets import BaseWidgets
 from Src.Infrastructure.ReadOnly.AuthenticationType import AuthenticationType
-from Src.Services.Domain.Models.Instances.Instances import Instances
+from Src.Services.Entity.Models.Instances import Instances
 from Src.Services.Queries.Instances.InstanceVersion import InstanceVersionRequest
 from Src.Services.QueriesHandler.Instances.InstanceVersionHandler import InstanceVersionHandler
-from Src.Services.Share.ShareInstance import ShareInstance
+from Src.Services.Entity.Share.ShareInstance import ShareInstance
 
 
 class InformationFrame(BaseFrame):

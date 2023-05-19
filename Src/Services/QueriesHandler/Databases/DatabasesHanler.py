@@ -1,5 +1,5 @@
 from Src.Infrastructure.BaseClasses.QueriesHandler import QueriesHandler
-from Src.Services.Domain.Models.Databases.Databases import Databases
+from Src.Services.Entity.Models.Databases import Databases
 from Src.Services.Queries.Databases.Databases import DatabasesResponse, DatabasesRequest
 
 

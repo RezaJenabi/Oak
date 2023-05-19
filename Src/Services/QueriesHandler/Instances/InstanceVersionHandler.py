@@ -1,6 +1,6 @@
 # Handle
 from Src.Infrastructure.BaseClasses.QueriesHandler import QueriesHandler
-from Src.Services.Domain.Models.Instances.Instances import Instances
+from Src.Services.Entity.Models.Instances import Instances
 from Src.Services.Queries.Instances.InstanceVersion import InstanceVersionRequest, InstanceVersionResponse
 from Src.Services.Repositories.InstancesRepository import InstancesRepository
 

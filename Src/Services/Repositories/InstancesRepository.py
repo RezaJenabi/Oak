@@ -1,7 +1,7 @@
 import connectorx as cx
 
 from Src.Infrastructure.ReadOnly.AuthenticationType import AuthenticationType
-from Src.Services.Domain.Models.Instances.Instances import Instances
+from Src.Services.Entity.Models.Instances import Instances
 
 
 class InstancesRepository:

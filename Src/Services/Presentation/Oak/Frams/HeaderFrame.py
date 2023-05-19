@@ -4,7 +4,7 @@ from tkinter import ttk
 from Src.Infrastructure.Presentation.BaseFrame import BaseFrame
 from Src.Infrastructure.Presentation.BaseWidgets import BaseWidgets
 from Src.Services.Presentation.Connection.Connection import Connection as Connect
-from Src.Services.Share.ShareInstance import ShareInstance
+from Src.Services.Entity.Share.ShareInstance import ShareInstance
 
 
 class HeaderFrame(BaseFrame):
