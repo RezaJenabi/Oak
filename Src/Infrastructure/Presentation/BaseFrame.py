@@ -20,7 +20,7 @@ class BaseFrame(ttk.Frame):
         self.Create()
 
     def Create(self):
-        raise NotImplementedError("Subclass needs to define this.")
+        pass
 
 
 

@@ -1,18 +1,29 @@
 import tkinter as tk
 from tkinter import ttk
 
+from Src.Infrastructure.Presentation.BaseFrame import BaseFrame
+from Src.Infrastructure.Presentation.BaseWidgets import BaseWidgets
 from Src.Services.Presentation.Connection.Connection import Connection as Connect
+from Src.Services.Share.ShareInstance import ShareInstance
 
 
-class HeaderFrame(ttk.Frame):
+class HeaderFrame(BaseFrame):
 
-    def __init__(self):
-        super().__init__()
-        self.__create_widgets()
+    def __init__(self, parent: BaseWidgets):
+        super().__init__(parent)
 
-    def __create_widgets(self):
-        _cancel = ttk.Button(self, text="Open Connect", command=self.__Close)
-        _cancel.grid(column=2, row=4, padx=15, pady=35, sticky=tk.NE)
+    def Create(self):
+        _openConnectFrame = ttk.Button(master=self, text="Open Connect", command=self.OpenConnectFrame)
+        _openConnectFrame.grid(column=2, row=4, padx=15, pady=35, sticky=tk.NE)
 
-    def __Close(self):
-        connect = Connect(None)
+        _testFrame = ttk.Button(master=self, text="Test", command=self.Test)
+        _testFrame.grid(column=2, row=5, padx=15, pady=35, sticky=tk.NE)
+
+    def OpenConnectFrame(self):
+        Connect()
+
+    def Test(self):
+        for x in range(len(ShareInstance.instances)):
+            print( ShareInstance.instances[x].Login)
+
+

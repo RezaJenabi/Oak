@@ -4,18 +4,18 @@ import tkinter as tk
 class BaseWidgets(tk.Tk):
     __title, _parent = None, None
 
-    @property
-    def Parent(self):
-        return self._parent
+    # @property
+    # def Parent(self):
+    #     return self._parent
+    #
+    # @Parent.setter
+    # def Parent(self, value):
+    #     self._parent = value
 
-    @Parent.setter
-    def Parent(self, value):
-        self._parent = value
-
-    def __init__(self, title, parent):
+    def __init__(self, title):
         super().__init__()
         self.__title = title
-        self.Parent = parent
+        # self.Parent = parent
         self.Create()
 
     def __Init(self):
@@ -48,7 +48,7 @@ class BaseWidgets(tk.Tk):
         self.iconbitmap(icon)
 
     def CreateFrames(self):
-        raise NotImplementedError("Subclass needs to define this.")
+        pass
 
     def Close(self):
         self.destroy()

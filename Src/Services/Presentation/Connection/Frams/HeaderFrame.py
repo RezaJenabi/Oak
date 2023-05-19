@@ -1,4 +1,3 @@
-from tkinter import ttk
 from tkinter import *
 
 from Src.Infrastructure.Presentation.BaseFrame import BaseFrame
@@ -11,11 +10,12 @@ class HeaderFrame(BaseFrame):
         super().__init__(parent)
 
     def Create(self):
-        cv = Canvas(self, width=480, height=70)
+        master = self.Parent
+        cv = Canvas(master, width=480, height=65)
         cv.create_text(240, 30,
                        anchor=CENTER,
                        text="SQL Server",
                        fill="#383838",
                        font=('Segoe UI', 25))
-        cv.create_line(0, 70, 480, 70, fill="#fe8718", width=3)
-        cv.grid(column=0)
+        cv.create_line(0, 65, 480, 65, fill="#fe8718", width=3)
+        cv.grid(column=0, row=0, columnspan=2)

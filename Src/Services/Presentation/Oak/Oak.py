@@ -6,9 +6,9 @@ from Src.Services.Presentation.Oak.Frams.HeaderFrame import HeaderFrame
 
 class Oak(BaseWidgets):
 
-    def __init__(self, parent):
+    def __init__(self):
         title = 'Oak'
-        super().__init__(title, parent)
+        super().__init__(title)
 
     def Create(self):
         super().Create()
@@ -18,7 +18,7 @@ class Oak(BaseWidgets):
         self.rowconfigure(0, weight=1)
         self.rowconfigure(1, weight=4)
 
-        header = HeaderFrame()
+        header = HeaderFrame(self)
         header.grid(column=0, row=0, sticky=tk.NW)
 
 
