@@ -9,6 +9,12 @@ class InstanceVersionRequest(Request):
     _password = None
     _login = None
 
+    def __init__(self, serverName, serverAuthenticationType, login, password):
+        self.Login = login
+        self.Password = password
+        self.ServerAuthenticationType = serverAuthenticationType
+        self.ServerName = serverName
+
     @property
     def Login(self):
         return self._login

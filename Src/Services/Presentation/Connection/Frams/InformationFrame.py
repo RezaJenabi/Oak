@@ -1,12 +1,14 @@
 import tkinter as tk
-from tkinter import ttk
+from tkinter import ttk, messagebox
+from tkinter import *
+
 
 from Src.Infrastructure.Presentation.BaseFrame import BaseFrame
 from Src.Infrastructure.Presentation.BaseWidgets import BaseWidgets
 from Src.Infrastructure.ReadOnly.AuthenticationType import AuthenticationType
-from tkinter import *
-
 from Src.Services.Domain.Models.Instances.Instances import Instances
+from Src.Services.Queries.Instances.InstanceVersion import InstanceVersionRequest
+from Src.Services.QueriesHandler.Instances.InstanceVersionHandler import InstanceVersionHandler
 from Src.Services.Share.ShareInstance import ShareInstance
 
 
@@ -66,14 +68,25 @@ class InformationFrame(BaseFrame):
         self.Parent.Close()
 
     def __Connect(self):
-        # d= InformationFrame.callback
-        instance: Instances = Instances()
-        instance.Login = 'login Name'
-        instance.Password = 'Pass'
-        instance.ServerName = 'Server'
-        instance.ServerAuthenticationType = 'SqlServerAuthentication'
+        login = self.__login.get()
+        password = self.__password.get()
+        serverAuthenticationType = self.__serverAuthenticationType.get()
+        serverName = self.__serverName.get()
 
-        ShareInstance.instances.append(instance)
-        self.__Close()
+        request = InstanceVersionRequest(serverName, serverAuthenticationType, login, password)
+        handler = InstanceVersionHandler()
+        response = handler.Handler(request)
+
+        if response.Status:
+            instance: Instances = Instances()
+            instance.Login = login
+            instance.Password = password
+            instance.ServerName = serverName
+            instance.ServerAuthenticationType = serverAuthenticationType
+            instance.Version = response.Version
+            ShareInstance.instances.append(instance)
+            self.__Close()
+        else:
+            messagebox.showerror('Python Error', 'Error: This is an Error Message!', parent=self.Parent)
 
 

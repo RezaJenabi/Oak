@@ -5,6 +5,15 @@ class Instances:
         self._serverAuthenticationType = None
         self._password = None
         self._login = None
+        self._version = None
+
+    @property
+    def Version(self):
+        return self._version
+
+    @Version.setter
+    def Version(self, value):
+        self._version = value
 
     @property
     def Login(self):

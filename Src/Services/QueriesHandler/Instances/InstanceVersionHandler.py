@@ -14,7 +14,10 @@ class InstanceVersionHandler(QueriesHandler):
         instance.Login = item.Login
         instance.Password = item.Password
 
-        result = InstancesRepository.CheckExists(instance)
-        response.Version = result
+        result = InstancesRepository.GetVersion(instance)
+        if result is not None:
+            response.Version = result
+        else:
+            response.Status = False
 
         return response

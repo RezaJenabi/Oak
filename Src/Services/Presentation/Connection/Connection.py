@@ -32,3 +32,4 @@ class Connection(BaseWidgets):
 
         information = InformationFrame(self)
         information.grid(sticky=tk.NE)
+        # self.tkraise()
