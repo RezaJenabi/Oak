@@ -1,6 +1,6 @@
 
 class Instances:
-    def __init__(self, serverName, serverAuthenticationType, login, password, version):
+    def __init__(self, serverName, serverAuthenticationType, login, password, version=None):
         self._serverName = serverName
         self._serverAuthenticationType = serverAuthenticationType
         self._password = password

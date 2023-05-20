@@ -9,10 +9,7 @@ class InstanceVersionHandler(QueriesHandler):
 
     def Handler(self, item: InstanceVersionRequest) -> InstanceVersionResponse:
         response = InstanceVersionResponse()
-        instance = Instances()
-        instance.ServerName = item.ServerName
-        instance.Login = item.Login
-        instance.Password = item.Password
+        instance = Instances(item.ServerName, item.ServerAuthenticationType, item.Login, item.Password)
 
         result = InstancesRepository.GetVersion(instance)
         if result is not None:
