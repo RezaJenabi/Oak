@@ -77,12 +77,7 @@ class InformationFrame(BaseFrame):
         response = handler.Handler(request)
 
         if response.Status:
-            instance: Instances = Instances()
-            instance.Login = login
-            instance.Password = password
-            instance.ServerName = serverName
-            instance.ServerAuthenticationType = serverAuthenticationType
-            instance.Version = response.Version
+            instance: Instances = Instances(serverName, serverAuthenticationType, login, password, response.Version)
             ShareInstance.instances.append(instance)
             self.__Close()
         else:

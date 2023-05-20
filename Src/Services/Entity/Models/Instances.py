@@ -1,11 +1,11 @@
 
 class Instances:
-    def __init__(self):
-        self._serverName = None
-        self._serverAuthenticationType = None
-        self._password = None
-        self._login = None
-        self._version = None
+    def __init__(self, serverName, serverAuthenticationType, login, password, version):
+        self._serverName = serverName
+        self._serverAuthenticationType = serverAuthenticationType
+        self._password = password
+        self._login = login
+        self._version = version
 
     @property
     def Version(self):
