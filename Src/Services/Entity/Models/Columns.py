@@ -1,6 +1,9 @@
 class Columns:
-    def __init__(self):
-        self._name = None
+    def __init__(self, name, dataType, identity, primaryKey):
+        self._identity = identity
+        self._primaryKey = primaryKey
+        self._name = name
+        self._dataType = dataType
 
     @property
     def Name(self):
