@@ -1,0 +1,17 @@
+<RCC>
+  <qresource prefix="Images">
+    <file>DataBaseConnect.ico</file>
+    <file>DatabaseProject.ico</file>
+    <file>mdf_ndf_dbfiles.ico</file>
+    <file>Oak_clipartmax.ico</file>
+    <file>ssms.ico</file>
+    <file>status_ico_attention.png</file>
+    <file>status_ico_error.png</file>
+    <file>status_ico_good.png</file>
+    <file>status_ico_neutral.png</file>
+    <file>status_ico_noncompliant.png</file>
+    <file>status_ico_transition.png</file>
+    <file>status_ico_trusted.png</file>
+    <file>transaction_logfile.ico</file>
+  </qresource>
+</RCC>
