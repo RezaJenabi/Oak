@@ -22,8 +22,6 @@ class Oak(QMainWindow):
         self._createObjectExplorerWidget()
         self._createTabWidget()
 
-
-
     def _init(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("MainWindow", "Oak"))
@@ -38,25 +36,6 @@ class Oak(QMainWindow):
         self.setAnimated(True)
         self.setTabShape(QtWidgets.QTabWidget.TabShape.Rounded)
         QtCore.QMetaObject.connectSlotsByName(self)
-
-    def _createMenuBarNode(self, parent: QtWidgets.QMenu, name: str):
-        menuNode = QtWidgets.QMenu(parent=parent)
-        menuNode.setObjectName(name)
-        menuNode.setTitle(name)
-        return menuNode
-
-    def _createMenuBarAction(self, parent, name, event, iconPath=None, shortcut=None):
-        action = QtGui.QAction(parent=parent)
-        if iconPath is not None:
-            icon = QtGui.QIcon()
-            icon.addPixmap(QtGui.QPixmap(iconPath), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-            action.setIcon(icon)
-            action.setObjectName(name)
-            action.setText(name)
-        if shortcut is not None:
-            action.setShortcut(shortcut)
-        action.triggered.connect(event)
-        return action
 
     def _createMenuBar(self):
         self.__menubar = QtWidgets.QMenuBar(parent=self)
@@ -205,5 +184,24 @@ class Oak(QMainWindow):
         self.tab.acceptDrops()
         self.__tabWidget.addTab(self.tab, "")
         self.__tabWidget.setTabText(self.__tabWidget.indexOf(self.tab), name)
+
+    def _createMenuBarNode(self, parent: QtWidgets.QMenu, name: str):
+        menuNode = QtWidgets.QMenu(parent=parent)
+        menuNode.setObjectName(name)
+        menuNode.setTitle(name)
+        return menuNode
+
+    def _createMenuBarAction(self, parent, name, event, iconPath=None, shortcut=None):
+        action = QtGui.QAction(parent=parent)
+        if iconPath is not None:
+            icon = QtGui.QIcon()
+            icon.addPixmap(QtGui.QPixmap(iconPath), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+            action.setIcon(icon)
+            action.setObjectName(name)
+            action.setText(name)
+        if shortcut is not None:
+            action.setShortcut(shortcut)
+        action.triggered.connect(event)
+        return action
 
 
