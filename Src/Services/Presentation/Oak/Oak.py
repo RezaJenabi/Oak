@@ -23,8 +23,7 @@ class Oak(QMainWindow):
         self._createTabWidget()
 
     def _init(self):
-        _translate = QtCore.QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "Oak"))
+        self.setWindowTitle("Oak")
         self.setObjectName("MainWindow")
         self.resize(804, 803)
         self.setMinimumSize(QtCore.QSize(800, 100))
@@ -48,11 +47,11 @@ class Oak(QMainWindow):
         self.menuHelp = self._createMenuBarNode(self.__menubar, "Help")
         self.setMenuBar(self.__menubar)
 
-        self.actionConnect_Object_Explorer = self._createMenuBarAction(self, "Connect Object Explorer",
+        self.actionConnectObjectExplorer = self._createMenuBarAction(self, "Connect Object Explorer",
                                                                        self._createObjectExplorerItem,
                                                                        "../Assets/Images/ssms.ico", "Ctrl+C")
 
-        self.actionDisconnect_Object_Explorer = self._createMenuBarAction(self, "Disconnect Object Explorer",
+        self.actionDisconnectObjectExplorer = self._createMenuBarAction(self, "Disconnect Object Explorer",
                                                                        self._createNewTab,
                                                                        "../Assets/Images/status_ico_error.png",
                                                                           "Ctrl+D")
@@ -66,8 +65,8 @@ class Oak(QMainWindow):
                                                                           "Ctrl+Shift+C")
 
         self.menuNew.addAction(self.actionCPU)
-        self.menuFile.addAction(self.actionConnect_Object_Explorer)
-        self.menuFile.addAction(self.actionDisconnect_Object_Explorer)
+        self.menuFile.addAction(self.actionConnectObjectExplorer)
+        self.menuFile.addAction(self.actionDisconnectObjectExplorer)
         self.menuFile.addSeparator()
         self.menuFile.addAction(self.menuNew.menuAction())
         self.menuFile.addSeparator()
@@ -83,49 +82,21 @@ class Oak(QMainWindow):
         self.__toolBar.setAcceptDrops(False)
         self.__toolBar.setObjectName("toolBar")
         self.addToolBar(QtCore.Qt.ToolBarArea.TopToolBarArea, self.__toolBar)
-        self.__toolBar.addAction(self.actionConnect_Object_Explorer)
-        self.__toolBar.addAction(self.actionDisconnect_Object_Explorer)
+        self.__toolBar.addAction(self.actionConnectObjectExplorer)
+        self.__toolBar.addAction(self.actionDisconnectObjectExplorer)
         self.__toolBar.addSeparator()
         self.__toolBar.addAction(self.actionSave)
         self.__toolBar.setWindowTitle("toolBar")
 
-    @QtCore.pyqtSlot(QtWidgets.QTreeWidgetItem, int)
-    def onItemDoubleClicked(self, it, col):
-        gp = QtGui.QCursor.pos()
-        point = self.__objectExplorerWidget.viewport().mapFromGlobal(gp)
-        item = self.__objectExplorerWidget.itemAt(point)
-        childCount = item.childCount()
-        if childCount is not None:
-            for i in reversed(range(childCount)):
-                item.removeChild(item.child(i))
-
-        child = QtWidgets.QTreeWidgetItem(item)
-        child.setText(0, "ddd")
-        # item_1 = QtWidgets.QTreeWidgetItem(item_0)
-
-    def _show_context_menu(self, position):
-        display_action1 = self.actionConnect_Object_Explorer
-        # display_action1 = QAction("Display Selection")
-        display_action1.triggered.connect(self.display_selection)
-        menu = QMenu(self.__objectExplorerWidget)
-        menu.addAction(display_action1)
-        menu.exec(self.__objectExplorerWidget.mapToGlobal(position))
-
-    # the action executed when menu is clicked
-    def display_selection(self):
-        column = self.__objectExplorerWidget.currentColumn()
-        text = self.__objectExplorerWidget.currentItem().text(column)
-        print("right-clicked item is " + text)
-
     def _createObjectExplorerWidget(self):
         self.__objectExplorerWidget = QtWidgets.QTreeWidget(parent=self.__horizontalLayoutWidget)
-        self.__objectExplorerWidget.itemDoubleClicked.connect(self.onItemDoubleClicked)
+        self.__objectExplorerWidget.itemDoubleClicked.connect(self.onObjectExplorerItemDoubleClicked)
 
         self.__objectExplorerWidget.setMaximumSize(QtCore.QSize(250, 16777215))
         self.__objectExplorerWidget.setObjectName("objectExplorerWidget")
 
         self.__objectExplorerWidget.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
-        self.__objectExplorerWidget.customContextMenuRequested.connect(self._show_context_menu)
+        self.__objectExplorerWidget.customContextMenuRequested.connect(self._showObjectExplorerRightClickMenu)
 
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap("../Assets/Images/DatabaseProject.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
@@ -148,6 +119,43 @@ class Oak(QMainWindow):
 
         self.__horizontalLayout.addWidget(self.__objectExplorerWidget)
 
+    def _createObjectExplorerItem(self):
+        parent = QtWidgets.QTreeWidgetItem(self.__objectExplorerWidget)
+        parent.setText(0, "ServerName")
+        child = QtWidgets.QTreeWidgetItem(parent)
+        child.setText(0, "Databases")
+        child = QtWidgets.QTreeWidgetItem(parent)
+        child.setText(0, "Views")
+        self.__objectExplorerWidget.addTopLevelItem(parent)
+
+    @QtCore.pyqtSlot(QtWidgets.QTreeWidgetItem, int)
+    def onObjectExplorerItemDoubleClicked(self):
+        gp = QtGui.QCursor.pos()
+        point = self.__objectExplorerWidget.viewport().mapFromGlobal(gp)
+        item = self.__objectExplorerWidget.itemAt(point)
+        childCount = item.childCount()
+        if childCount is not None:
+            for i in reversed(range(childCount)):
+                item.removeChild(item.child(i))
+
+        child = QtWidgets.QTreeWidgetItem(item)
+        child.setText(0, "ddd")
+        # item_1 = QtWidgets.QTreeWidgetItem(item_0)
+
+    def _showObjectExplorerRightClickMenu(self, position):
+        display_action1 = self.actionConnectObjectExplorer
+        # display_action1 = QAction("Display Selection")
+        # display_action1.triggered.connect(self.display_selection)
+        menu = QMenu(self.__objectExplorerWidget)
+        menu.addAction(display_action1)
+        menu.exec(self.__objectExplorerWidget.mapToGlobal(position))
+
+    # the action executed when menu is clicked
+    # def _sampleActionRightClickSelection(self):
+    #     column = self.__objectExplorerWidget.currentColumn()
+    #     text = self.__objectExplorerWidget.currentItem().text(column)
+    #     print("right-clicked item is " + text)
+
     def _createHorizontalLayoutWidget(self):
         self.__horizontalLayoutWidget = QtWidgets.QWidget(parent=self.__centralWidget)
         self.__horizontalLayoutWidget.setGeometry(QtCore.QRect(-1, -1, 801, 741))
@@ -167,15 +175,6 @@ class Oak(QMainWindow):
         self.__tabWidget = QtWidgets.QTabWidget(parent=self.__horizontalLayoutWidget)
         self.__tabWidget.setObjectName("tabWidget")
         self.__horizontalLayout.addWidget(self.__tabWidget)
-
-    def _createObjectExplorerItem(self):
-        parent = QtWidgets.QTreeWidgetItem(self.__objectExplorerWidget)
-        parent.setText(0, "ServerName")
-        child = QtWidgets.QTreeWidgetItem(parent)
-        child.setText(0, "Databases")
-        child = QtWidgets.QTreeWidgetItem(parent)
-        child.setText(0, "Views")
-        self.__objectExplorerWidget.addTopLevelItem(parent)
 
     def _createNewTab(self):
         name = 'test'
@@ -203,5 +202,6 @@ class Oak(QMainWindow):
             action.setShortcut(shortcut)
         action.triggered.connect(event)
         return action
+
 
 
