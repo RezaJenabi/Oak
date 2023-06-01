@@ -10,6 +10,7 @@ class Window(QWidget):
         self._createHeader()
         self._createHeaderLine()
         self._createForm()
+        self.show()
 
     def _init(self):
         self.setObjectName("ConnectToServer")
@@ -27,6 +28,7 @@ class Window(QWidget):
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
+
     def _createHeaderLine(self):
         line = QtWidgets.QFrame(parent=self.verticalLayoutWidget)
         line.setMinimumSize(QtCore.QSize(0, 2))
@@ -125,11 +127,14 @@ class Window(QWidget):
         self.buttonBox = QtWidgets.QDialogButtonBox(parent=self.verticalLayoutWidget)
         self.buttonBox.setLayoutDirection(QtCore.Qt.LayoutDirection.LeftToRight)
         self.buttonBox.setOrientation(QtCore.Qt.Orientation.Horizontal)
-        self.buttonBox.setStandardButtons(
-            QtWidgets.QDialogButtonBox.StandardButton.Cancel | QtWidgets.QDialogButtonBox.StandardButton.Ok)
+        self.buttonBox.addButton(QtWidgets.QDialogButtonBox.StandardButton.Cancel).setText("Cancel")
+        self.buttonBox.addButton(QtWidgets.QDialogButtonBox.StandardButton.Ok).setText("Connect")
+        self.buttonBox.button(QtWidgets.QDialogButtonBox.StandardButton.Cancel).clicked.connect(self._cancel)
+        self.buttonBox.button(QtWidgets.QDialogButtonBox.StandardButton.Ok).clicked.connect(self._connect)
         self.buttonBox.setCenterButtons(False)
         self.buttonBox.setObjectName("buttonBox")
         verticalLayoutForm.addWidget(self.buttonBox)
+
         self._disabledFormAuthenticationType()
         self.verticalLayout.addLayout(verticalLayoutForm)
         QtCore.QMetaObject.connectSlotsByName(self)
@@ -146,11 +151,17 @@ class Window(QWidget):
         self.userName.setDisabled(True)
         self.password.setDisabled(True)
 
+    def _cancel(self):
+        self.destroy()
+        self.close()
+
+    def _connect(self):
+        self.close()
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Frame = QtWidgets.QFrame()
     ui = Window(None)
-    ui.show()
     sys.exit(app.exec())
 
