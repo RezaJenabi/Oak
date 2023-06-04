@@ -1,4 +1,4 @@
-from PyQt6.QtGui import QAction
+from PyQt6.QtGui import QAction, QColor, QBrush
 from PyQt6.QtWidgets import (
     QMainWindow, QMenu
 )
@@ -29,7 +29,7 @@ class Oak(QMainWindow):
         self.setMinimumSize(QtCore.QSize(800, 100))
         self.setAcceptDrops(False)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("./Assets/Images/Oak_clipartmax.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
+        icon.addPixmap(QtGui.QPixmap("./Assets/icons/project/Oak_clipartmax.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
         self.setWindowIcon(icon)
         self.setStyleSheet("background-color: rgb(214, 219, 233);")
         self.setAnimated(True)
@@ -49,11 +49,11 @@ class Oak(QMainWindow):
 
         self.actionConnectObjectExplorer = self._createMenuBarAction(self, "Connect Object Explorer",
                                                                        self._createObjectExplorerItem,
-                                                                       "../Assets/Images/ssms.ico", "Ctrl+C")
+                                                                       "../Assets/icons/icons/plug-connect.png", "Ctrl+C")
 
         self.actionDisconnectObjectExplorer = self._createMenuBarAction(self, "Disconnect Object Explorer",
                                                                        self._createNewTab,
-                                                                       "../Assets/Images/status_ico_error.png",
+                                                                       "../Assets/icons/icons/plug-disconnect.png",
                                                                           "Ctrl+D")
         self.actionSave = self._createMenuBarAction(self, "Save",
                                                                        self._createNewTab,
@@ -91,32 +91,21 @@ class Oak(QMainWindow):
     def _createObjectExplorerWidget(self):
         self.__objectExplorerWidget = QtWidgets.QTreeWidget(parent=self.__horizontalLayoutWidget)
         self.__objectExplorerWidget.itemDoubleClicked.connect(self.onObjectExplorerItemDoubleClicked)
-
+        # self.__objectExplorerWidget.setStyleSheet("background-color: #fff29d;")
         self.__objectExplorerWidget.setMaximumSize(QtCore.QSize(250, 16777215))
         self.__objectExplorerWidget.setObjectName("objectExplorerWidget")
 
         self.__objectExplorerWidget.setContextMenuPolicy(QtCore.Qt.ContextMenuPolicy.CustomContextMenu)
         self.__objectExplorerWidget.customContextMenuRequested.connect(self._showObjectExplorerRightClickMenu)
 
-        icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("../Assets/Images/DatabaseProject.ico"), QtGui.QIcon.Mode.Normal, QtGui.QIcon.State.Off)
-        self.__objectExplorerWidget.headerItem().setIcon(0, icon)
-
-        item_0 = QtWidgets.QTreeWidgetItem(self.__objectExplorerWidget)
-        item_1 = QtWidgets.QTreeWidgetItem(item_0)
-        item_0 = QtWidgets.QTreeWidgetItem(self.__objectExplorerWidget)
-        item_0 = QtWidgets.QTreeWidgetItem(self.__objectExplorerWidget)
-
         self.__objectExplorerWidget.headerItem().setText(0, "Object Explorer")
+
+        # brush = QBrush()
+        # brush.setColor(QColor().blue())
+        # self.__objectExplorerWidget.headerItem().setBackground(0, brush)
         __sortingEnabled = self.__objectExplorerWidget.isSortingEnabled()
         self.__objectExplorerWidget.setSortingEnabled(False)
-        self.__objectExplorerWidget.topLevelItem(0).setText(0, "First")
-        self.__objectExplorerWidget.topLevelItem(0).child(0).setText(0, "First-1")
-        self.__objectExplorerWidget.topLevelItem(1).setText(0, "Second")
-        self.__objectExplorerWidget.topLevelItem(2).setText(0, "Second")
-
         self.__objectExplorerWidget.setSortingEnabled(__sortingEnabled)
-
         self.__horizontalLayout.addWidget(self.__objectExplorerWidget)
 
     def _createObjectExplorerItem(self):
